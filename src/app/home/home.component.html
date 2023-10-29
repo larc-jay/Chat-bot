@@ -1,0 +1,129 @@
+<div class="content">
+    <div class="d-flex">
+        <div class="layout-left p-1">
+          <a class="navbar-brand" href="#">
+            <img class="p-2" src="./assets/images/logo.png" width="100%"/>
+          </a>
+
+            <div class="card" >
+                <div class="card-body">
+                  <h5 class="card-title">Reviewbricks.ai</h5>
+                  <p class="card-text">
+                    Welcome to <a class="link" href="#">reviewbricks.ai!</a> Transforming User Reviews into Insights. Convert everyday language into actionable data.Our platform extracts 
+                    facts from user reviews, making it easy to identify product pros and cons. Ask questions, get natural language answers. ,where user feedback 
+                    becomes your guide.
+
+                  </p>
+                  <!-- <P>
+                    <a class="link" href="#">reviewbricks.ai</a> is Not intended to offer any product recommendations.All results are solely derived from user-written 
+                    <a class="link" href="#">reviews.reviewbricks.ai</a>
+                     serves as a technical demonstration and proof of concept to provide valuable insights to consumers based on user reviews of various products.
+                  </P> -->
+                  <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                </div>
+              </div>
+             
+              <div class="input-group pt-2">
+                <div class="input-group mb-3">
+                    <!-- <div class="input-group-prepend">
+                      <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                    </div> --> 
+                    <select class="form-control" [(ngModel)]="selectedLink">
+                      <option value="">Choose Product Link</option>
+                      <option *ngFor="let u of urls" [value]="u.url"> {{u.name}}
+                        <!--{{ u.length > 50 ? u.substring(0,50)+'.......'   : u}}-->
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="relative ">
+                  <button type="button" class="btn btn-primary" (click)="generateSummary()">Generate</button>
+                </div>
+                <!-- <div class="input-group pt-2">
+                  <div class="form-group">
+                    <label for="question">Your Question here</label>
+                    <textarea class="form-control" id="question" placeholder="Enter question here" rows="3" cols="70" [(ngModel)]="question"></textarea>
+                  </div>
+                </div>
+                <div class="relative pt-2">
+                  <button type="button" class="btn btn-primary" (click)="askQuestion()">Search</button>
+                </div> -->
+        </div>
+        <div class="layout-right">
+            <div class="card" >
+              
+              <div class="card-body" *ngIf="generating">
+                    <div *ngIf="!summaryResult.responsePros">
+                      <img class="p-2" src="./assets/images/generating.svg" width="50"/>Generating......
+                    </div>
+                    <h5 class="card-title">{{summaryResult.product_name}}</h5>
+                    <div class="card-text" [hidden]="!summaryResult.responsePros">
+                      <img *ngIf="summaryResult" class="card-img-top" src="{{summaryResult.img_url}}" style="width: 200px; float: left;padding:10px">
+                      <div>
+                        <h5>Pros :</h5><span id="appPros">  </span>
+                      </div>
+                      <div [hidden]="counter2 == 0">
+                        <h5>Cons :</h5><span id="appCons">  </span>
+                      </div>
+                    </div>
+              </div>
+              </div>  
+
+              <!-- <div class="card " >
+                <div class="card-body">
+                  <h5 class="card-title">Question</h5>
+                      <p class="card-text">
+                        {{result.question}}
+                    </p>
+                </div>
+                </div>  
+                <div class="card" >
+                  <div class="card-body">
+                    <h5 class="card-title">Answer</h5>
+                        <p class="card-text">
+                          {{result.answer}}
+                      </p>
+               </div>
+              </div>   -->
+              <div  class="message-box"  *ngIf="messages.length > 0">
+                <div class="min-max"> 
+                  <img *ngIf="minmax" src="./assets/images/min.png" width="20" (click)="maximize()"/>
+                  <img *ngIf="!minmax"  src="./assets/images/max.png" width="25"  (click)="maximize()"/>
+                </div>
+                <div class="card noborder chat-bot-window" *ngIf="minmax">
+                  <div #scrollMe  class="card-body msg ">
+                    <ng-container *ngFor="let message of messages">
+                      <div class="row">
+                        <div class="col-md-12" [ngClass]="{'text-left': message.author === 'bot','text-right': message.author === 'user'}">
+                          <img style="float: right;"  src="./assets/images/usericon.png" width="30" *ngIf="message.author === 'user'"/>
+                          <img  style="float: left;"   src="./assets/images/usericon1.png" width="30" *ngIf="message.author === 'bot'"/>
+                          <div class="message" [ngClass]="{from: message.author === 'bot',to: message.author === 'user'}">
+                            {{ message.content }}
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                 </div>   
+              </div>
+              </div>
+              <div class="chat-bot" *ngIf="summaryResult.responsePros">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <!-- <label *ngIf="messages.length == 0; else dialogInfo" for="nameField">Ask your question</label> -->
+                      <input [(ngModel)]="question" class="form-control" (keyup.enter)="sendMessage()" type="text"  placeholder="Ask your question"/>
+                      <!-- <ng-template #dialogInfo>
+                        <span [className]="'float-right'">Total messages: {{ messages.length }}</span>
+                      </ng-template> -->
+                    </div>
+                    </div>
+                    <div class="row pt-2">
+                    <div class="col-sm-12 text-end ">
+                      <button (click)="sendMessage()" class="btn btn-sm btn-primary">Send</button> &ngsp; &ngsp;
+                      <!-- <button (click)="sendTestMessage()" class="btn btn-sm btn-primary">Send</button> -->
+                      <button (click)="clearMessage()" class="btn btn-sm  border txtw">Clear</button>
+                    </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+</div>

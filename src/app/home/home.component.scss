@@ -1,0 +1,71 @@
+.card {
+    background: #fff !important;
+    color: #2d3273 !important;
+    border:1px dotted
+}
+div > label {
+    color: #fff;
+}
+
+.message {
+    border-radius: 50px;
+    margin: 0 15px 20px;
+    padding: 10px 20px;
+    position: relative;
+    font-size: 20px;
+  }
+  .message.to {
+    background-color: #2095FE;
+    color: #fff;
+    margin-left: 100px;
+    text-align: right;
+    width: fit-content;
+    float: right;
+    font-size: 10px;
+  }
+  .message.from {
+    background-color: #E5E4E9;
+    color: #363636;
+    margin-right: 100px;
+    width: fit-content;
+    float: left;
+    font-size: 10px;
+  }
+  .message.to + .message.to,
+  .message.from + .message.from {
+    margin-top: -10px;
+}
+.chat-bot {
+    position: absolute;
+    bottom: 65px;
+    right: 20px;
+    background: #cfd4d900;
+    width: 40%;
+    height: 50px;
+}
+.message-box {
+    position: absolute;
+    bottom: 115px;
+    right: 20px;
+    background: #96bfe800;
+    width: 40%;
+    max-height: 450px;
+    min-height: 170;
+    overflow-y:scroll;
+    border:1px solid #000;
+}
+.min-max{
+  text-align: right;
+  background: #fff;
+}
+.msg {
+    max-height: 420px !important;
+    min-height: 170;
+    overflow-y:scroll;
+}
+.noborder {
+  border: 0px !important;
+}
+.btn:hover {
+    color: #2095FE !important;
+}
