@@ -18,20 +18,8 @@ export class AboutComponent {
     this.isGenerate =false;
   }
   ngOnInit() {
-    this.urls =[
-      {
-        name : 'url name 1',
-        url : 'url link 1'
-      },
-      {
-        name : 'url name 2',
-        url : 'url link 2'
-      },
-      {
-        name : 'url name 3',
-        url : 'https://rukminim2.flixcart.com/image/416/416/k7285u80/washing-machine-new/x/t/t/ace-7-5-supreme-whirlpool-original-imafpdphxezg24ey.jpeg?q=70'
-      }
-    ];
+    //this.setTempUrl();
+    this.getAllUrl();
     this.isGenerate =false;
   }
   generateSummary(){
@@ -53,5 +41,22 @@ export class AboutComponent {
     this.isGenerate = false;
     this.selectedLink ="";
     this.getAllUrl();
+  }
+
+  setTempUrl(){
+    this.urls =[
+      {
+        name : 'url name 1',
+        url : 'url link 1'
+      },
+      {
+        name : 'url name 2',
+        url : 'url link 2'
+      },
+      {
+        name : 'url name 3',
+        url : 'https://rukminim2.flixcart.com/image/416/416/k7285u80/washing-machine-new/x/t/t/ace-7-5-supreme-whirlpool-original-imafpdphxezg24ey.jpeg?q=70'
+      }
+    ];
   }
 }

@@ -13,9 +13,9 @@
             </div>
           </div>
           <div class="pt-1">
-            <ul>
+            <ul *ngIf="historyUrls && historyUrls.length> 0">
               <li *ngFor ="let u of historyUrls">
-                <span (click)="generateHistoryUrlsSummary(u.url)" class="link cursor">{{u.name}}</span>
+                <span (click)="generateHistoryUrlsSummary(u.product_url)" class="link cursor">{{u.search_term}}</span>
               </li>
             </ul>
           </div>  
@@ -50,13 +50,21 @@
                     </div>
                     <h5 class="card-title">{{summaryResult.product_name}}</h5>
                     <div class="card-text" [hidden]="!summaryResult.responsePros">
-                      <img *ngIf="summaryResult" class="card-img-top" src="{{summaryResult.img_url}}" style="width: 200px; float: left;padding:10px">
+                      <img *ngIf="summaryResult" class="card-img-top" src="{{summaryResult.img_url}}" style="width: 200px; float: left;padding:25px">
                       <div>
-                        <h5>Pros :</h5><ul><span id="appPros"> </span></ul>
+                        <h5>Pros :</h5>
+                        <!-- <span id="appPros"> </span> -->
+                        <ul *ngIf="summaryResult?.responseProsList?.length > 0">
+                          <li *ngFor="let psum of summaryResult.responseProsList">{{psum}}</li>
+                        </ul>
                       </div>
-                      <div [hidden]="counter2 == 0">
+                      <h5>Cons :</h5> 
+                      <ul *ngIf="summaryResult?.responseConsList?.length > 0">
+                        <li *ngFor="let csum of summaryResult.responseConsList">{{csum}}</li>
+                      </ul>
+                      <!-- <div [hidden]="counter2 == 0">
                         <h5>Cons :</h5><span id="appCons">  </span>
-                      </div>
+                      </div> -->
                     </div>
               </div>
               </div>  
@@ -94,9 +102,9 @@
                         <span class="cursor" (click)="sendMessage()">
                           <img class="" src="./assets/images/Sent.png" width="40"/>
                         </span>
-                        <span class="cursor" (click)="sendTestMessage()">
+                        <!-- <span class="cursor" (click)="sendTestMessage()">
                           <img class="" src="./assets/images/Sent.png" width="40"/>
-                        </span>
+                        </span> -->
                         <!-- <button (click)="sendMessage()" class="btn btn-sm btn-primary">Send</button> &ngsp; &ngsp; -->
                         <!-- <button (click)="sendTestMessage()" class="btn btn-sm btn-primary">Send</button> -->
                         <!-- <button (click)="clearMessage()" class="btn btn-sm  border txtw">Clear</button> -->

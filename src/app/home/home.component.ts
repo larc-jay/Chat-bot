@@ -38,30 +38,7 @@ export class HomeComponent implements OnInit , AfterViewChecked {
 } 
 
   ngOnInit() {
-    this.urls =[
-      {
-        name : 'url name 1',
-        url : 'url link 1'
-      },
-      {
-        name : 'url name 2',
-        url : 'url link 2'
-      },
-      {
-        name : 'url name 3',
-        url : 'https://rukminim2.flixcart.com/image/416/416/k7285u80/washing-machine-new/x/t/t/ace-7-5-supreme-whirlpool-original-imafpdphxezg24ey.jpeg?q=70'
-      }
-    ];
     this.historyUrls = this.urls;
-    /*this.summaryResult = {
-      "response":"this is temprary summary"
-    }*/
-    this.result = {
-      "question":"How are you",
-      "answer" : "I am good"
-    }
-    this.getAllUrl();
-
     this.chatService.conversation.subscribe((val) => {
       this.messages = this.messages.concat(val);
     });
@@ -123,6 +100,8 @@ export class HomeComponent implements OnInit , AfterViewChecked {
       {
         next : (res)=>{
           this.summaryResult = res;
+          /*
+          //for writing effect
           this.counter1 = 0;
           this.counter2 = 0;
           this.MAXLEN1 = this.summaryResult.responsePros.length;
@@ -132,6 +111,8 @@ export class HomeComponent implements OnInit , AfterViewChecked {
           this.typeWriterPros(()=>{
             this.typeWriterCons()
           });
+          */
+           this.getAHistoryUrl();
           this.isGenerated = true;
           if(this.selectedUrlName && this.selectedUrlName.trim()){
             this.setGeneratedUrl();
@@ -139,37 +120,7 @@ export class HomeComponent implements OnInit , AfterViewChecked {
         },
         error :(err)=>{
           console.log(err);
-          this.summaryResult =
-          {
-            "execution_time": "35.04087948799133 seconds",
-            "img_url": "https://rukminim2.flixcart.com/image/416/416/k7285u80/washing-machine-new/x/t/t/ace-7-5-supreme-whirlpool-original-imafpdphxezg24ey.jpeg?q=70",
-            "product_name": "Whirlpool 7.5 kg 5 Star, Ace Wash Station Semi Automatic Top Load Washing Machine Grey  (ACE 7.5 SUPREME GREY DAZZLE)",
-            "rating": 4.4,
-            "response":"test",
-            "responsePros": "Performance: 70% of users were satisfied with the washingmachine's performance. They mentioned that it does the job well,especially considering its price point. * Build Quality: 60% of userswere satisfied with the build quality of the washing machine. Theynoted that while it may not be as sturdy as some other brands, it'sstill decent for the price. * Value for Money: 80% of users felt thatthe washing machine offered good value for money. They appreciated thebalance between performance and price.",
-            "responseCons": "Noise: 30% of usersexperienced excessive noise during operation. They noted that it canget quite loud, especially during the spin cycle. * Plastic Quality:20% of users were disappointed with the quality of the plastic used inthe washing machine. They noted that it feels cheap and flimsycompared to other machines they have owned. * Shaking DuringOperation: 10% of users reported that their washing machine wouldshake excessively during operation. This could be due to improperbalancing or a weak frame.  Overall, the majority of users weresatisfied with their purchase, praising its performance and value formoney. However, some users experienced issues with noise and plasticquality, which may affect their overall satisfaction.",
-            "responseConsList": [
-              "Noise: 60% ofusers reported that the machine can be quite noisy during operation.",
-              "Plastic quality: 40% of users felt that the plastic parts used in themachine could be of higher quality.",
-              "Shaking during operation: 30% ofusers experienced some shaking during operation, which affected theiroverall experience."
-          ],
-          "responseProsList": [
-              "Performance: 90% of users expressed satisfaction with themachine's performance. They praised its ability to wash clothesthoroughly and quickly.",
-              "Build quality: 95% of users were satisfiedwith the build quality of the machine. They mentioned that it feelssolid and sturdy.",
-              "Price-value ratio: 90% of users felt that themachine offers excellent value for money.",
-              "Ease of use: 95% of usersfound the machine easy to use and operate."
-          ]
-          }
-          this.counter1 = 0;
-          this.counter2 = 0;
-          this.MAXLEN1 = this.summaryResult.responsePros.length;
-          this.MAXLEN2 = this.summaryResult.responseCons.length;
-          (document.getElementById("appCons")as any ).innerHTML='';
-          (document.getElementById("appPros")as any ).innerHTML =''
-          this.typeWriterPros(()=>{
-            this.typeWriterCons()
-          });
-          this.isGenerated = true;
+          this.setTempSummary();
         }
       }
     )
@@ -211,7 +162,7 @@ export class HomeComponent implements OnInit , AfterViewChecked {
     this.httpClient.getHistoryUrl().subscribe(
       {
         next :(res)=>{
-          this.historyUrls = res
+          this.historyUrls = res.search_history
         }
       }
     )
@@ -224,7 +175,7 @@ export class HomeComponent implements OnInit , AfterViewChecked {
     this.httpClient.setHistoryUrl(query).subscribe(
       {
         next :(res)=>{
-          this.historyUrls = res
+          console.log(res);
         }
       }
     )
@@ -261,5 +212,38 @@ export class HomeComponent implements OnInit , AfterViewChecked {
   close(){
     this.isGenerated = false;
     this.about.reset();
+  }
+  setTempSummary(){
+    this.summaryResult =
+          {
+            "execution_time": "35.04087948799133 seconds",
+            "img_url": "https://rukminim2.flixcart.com/image/416/416/k7285u80/washing-machine-new/x/t/t/ace-7-5-supreme-whirlpool-original-imafpdphxezg24ey.jpeg?q=70",
+            "product_name": "Whirlpool 7.5 kg 5 Star, Ace Wash Station Semi Automatic Top Load Washing Machine Grey  (ACE 7.5 SUPREME GREY DAZZLE)",
+            "rating": 4.4,
+            "response":"test",
+            "responsePros": "Performance: 70% of users were satisfied with the washingmachine's performance. They mentioned that it does the job well,especially considering its price point. * Build Quality: 60% of userswere satisfied with the build quality of the washing machine. Theynoted that while it may not be as sturdy as some other brands, it'sstill decent for the price. * Value for Money: 80% of users felt thatthe washing machine offered good value for money. They appreciated thebalance between performance and price.",
+            "responseCons": "Noise: 30% of usersexperienced excessive noise during operation. They noted that it canget quite loud, especially during the spin cycle. * Plastic Quality:20% of users were disappointed with the quality of the plastic used inthe washing machine. They noted that it feels cheap and flimsycompared to other machines they have owned. * Shaking DuringOperation: 10% of users reported that their washing machine wouldshake excessively during operation. This could be due to improperbalancing or a weak frame.  Overall, the majority of users weresatisfied with their purchase, praising its performance and value formoney. However, some users experienced issues with noise and plasticquality, which may affect their overall satisfaction.",
+            "responseConsList": [
+              "Noise: 60% ofusers reported that the machine can be quite noisy during operation.",
+              "Plastic quality: 40% of users felt that the plastic parts used in themachine could be of higher quality.",
+              "Shaking during operation: 30% ofusers experienced some shaking during operation, which affected theiroverall experience."
+          ],
+          "responseProsList": [
+              "Performance: 90% of users expressed satisfaction with themachine's performance. They praised its ability to wash clothesthoroughly and quickly.",
+              "Build quality: 95% of users were satisfiedwith the build quality of the machine. They mentioned that it feelssolid and sturdy.",
+              "Price-value ratio: 90% of users felt that themachine offers excellent value for money.",
+              "Ease of use: 95% of usersfound the machine easy to use and operate."
+          ]
+          }
+          this.counter1 = 0;
+          this.counter2 = 0;
+          this.MAXLEN1 = this.summaryResult.responsePros.length;
+          this.MAXLEN2 = this.summaryResult.responseCons.length;
+          (document.getElementById("appCons")as any ).innerHTML='';
+          (document.getElementById("appPros")as any ).innerHTML =''
+          this.typeWriterPros(()=>{
+            this.typeWriterCons()
+          });
+          this.isGenerated = true;
   }
 }
