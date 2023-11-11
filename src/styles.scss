@@ -2,7 +2,7 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
 .content {
-    border: 1px solid #000;
+    border: 0px solid #000;
     overflow-y:auto;
     height:100%;
     min-height: calc(100vh - 50px);
@@ -16,17 +16,18 @@
     min-height: calc(100vh - 30px);
 }
 .layout-left {
-    background: rgb(33 35 79);
-    width: 30%;
+    background: rgb(212 213 221 / 40%);
+    width: 20%;
     border-right: 1px solid #202016;
     min-height: calc(100vh - 50px);
     max-height: calc(100vh - 50px);
     overflow-y:scroll;
+    float: left;
 }
 
 .layout-right {
     background: #f0f0f014;
-    width: 70%;
+    /* width: 70%;*/
     max-height: calc(100vh - 50px);
     overflow-y:scroll;
     padding: 5px;
@@ -44,4 +45,23 @@
     color: #fff !important;
     background-color: #0a58ca;
     margin-left:5px;
+}
+.btn {
+    background: #8f59f9 !important;
+    border:  1px solid #8f59f9 !important;
+}
+.btn:hover {
+    background: #fff !important; 
+    color: #8f59f9 !important;
+    border: 1px solid #8f59f9;
+}
+.btn-primary:hover{
+    background: #fff !important; 
+    color: #8f59f9 !important;
+}
+.cursor {
+    cursor: pointer;
+}
+.link {
+    color: #0a58ca;
 }

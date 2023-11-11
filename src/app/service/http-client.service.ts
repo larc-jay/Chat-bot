@@ -19,4 +19,10 @@ export class HttpClientService {
   getAllUrl() {
     return this.httpClient.get<any>(`${environment.apiBaseUrl}/get_all_url`,{});
   }
+  getHistoryUrl() {
+    return this.httpClient.get<any>(`${environment.apiBaseUrl}/get_search_history`,{});
+  }
+  setHistoryUrl(query: any) {
+    return this.httpClient.post<any>(`${environment.apiBaseUrl}/set_search_history`,query);
+  }
 }

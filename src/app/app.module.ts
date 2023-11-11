@@ -9,13 +9,15 @@ import { FooterComponent } from './footer/footer.component';
 import { HttpInterceptorService } from './service/http-interceptor.service';
 import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    AboutComponent
   ],
   imports: [
     HttpClientModule,

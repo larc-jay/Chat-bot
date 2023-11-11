@@ -2,6 +2,7 @@ import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@ang
 import { HttpClientService } from '../service/http-client.service';
 import { Message } from '../model/Message';
 import { ChatService } from '../service/chat.service';
+import { AboutComponent } from '../about/about.component';
 
 @Component({
   selector: 'app-home',
@@ -10,15 +11,18 @@ import { ChatService } from '../service/chat.service';
 })
 export class HomeComponent implements OnInit , AfterViewChecked {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef | undefined;
+  @ViewChild(AboutComponent) about!: AboutComponent;
   constructor(
     private httpClient: HttpClientService,
     public chatService: ChatService
   ) { }
   selectedLink : any ="";
+  selectedUrlName :any = "";
   question :any ="";
   summaryResult:any = {};
   result :any = {};
   urls :any = [];
+  historyUrls :any = []
   generating = false;
   start: boolean = false
   messages: Message[] = [];
@@ -27,6 +31,8 @@ export class HomeComponent implements OnInit , AfterViewChecked {
   MAXLEN1 =0;  
   MAXLEN2 =0;  
   minmax = false;
+  messageBox = true;
+  isGenerated = false;
   ngAfterViewChecked() {        
     this.scrollToBottom();        
 } 
@@ -46,6 +52,7 @@ export class HomeComponent implements OnInit , AfterViewChecked {
         url : 'https://rukminim2.flixcart.com/image/416/416/k7285u80/washing-machine-new/x/t/t/ace-7-5-supreme-whirlpool-original-imafpdphxezg24ey.jpeg?q=70'
       }
     ];
+    this.historyUrls = this.urls;
     /*this.summaryResult = {
       "response":"this is temprary summary"
     }*/
@@ -125,6 +132,10 @@ export class HomeComponent implements OnInit , AfterViewChecked {
           this.typeWriterPros(()=>{
             this.typeWriterCons()
           });
+          this.isGenerated = true;
+          if(this.selectedUrlName && this.selectedUrlName.trim()){
+            this.setGeneratedUrl();
+          }
         },
         error :(err)=>{
           console.log(err);
@@ -134,8 +145,20 @@ export class HomeComponent implements OnInit , AfterViewChecked {
             "img_url": "https://rukminim2.flixcart.com/image/416/416/k7285u80/washing-machine-new/x/t/t/ace-7-5-supreme-whirlpool-original-imafpdphxezg24ey.jpeg?q=70",
             "product_name": "Whirlpool 7.5 kg 5 Star, Ace Wash Station Semi Automatic Top Load Washing Machine Grey  (ACE 7.5 SUPREME GREY DAZZLE)",
             "rating": 4.4,
+            "response":"test",
             "responsePros": "Performance: 70% of users were satisfied with the washingmachine's performance. They mentioned that it does the job well,especially considering its price point. * Build Quality: 60% of userswere satisfied with the build quality of the washing machine. Theynoted that while it may not be as sturdy as some other brands, it'sstill decent for the price. * Value for Money: 80% of users felt thatthe washing machine offered good value for money. They appreciated thebalance between performance and price.",
-            "responseCons": "Noise: 30% of usersexperienced excessive noise during operation. They noted that it canget quite loud, especially during the spin cycle. * Plastic Quality:20% of users were disappointed with the quality of the plastic used inthe washing machine. They noted that it feels cheap and flimsycompared to other machines they have owned. * Shaking DuringOperation: 10% of users reported that their washing machine wouldshake excessively during operation. This could be due to improperbalancing or a weak frame.  Overall, the majority of users weresatisfied with their purchase, praising its performance and value formoney. However, some users experienced issues with noise and plasticquality, which may affect their overall satisfaction."
+            "responseCons": "Noise: 30% of usersexperienced excessive noise during operation. They noted that it canget quite loud, especially during the spin cycle. * Plastic Quality:20% of users were disappointed with the quality of the plastic used inthe washing machine. They noted that it feels cheap and flimsycompared to other machines they have owned. * Shaking DuringOperation: 10% of users reported that their washing machine wouldshake excessively during operation. This could be due to improperbalancing or a weak frame.  Overall, the majority of users weresatisfied with their purchase, praising its performance and value formoney. However, some users experienced issues with noise and plasticquality, which may affect their overall satisfaction.",
+            "responseConsList": [
+              "Noise: 60% ofusers reported that the machine can be quite noisy during operation.",
+              "Plastic quality: 40% of users felt that the plastic parts used in themachine could be of higher quality.",
+              "Shaking during operation: 30% ofusers experienced some shaking during operation, which affected theiroverall experience."
+          ],
+          "responseProsList": [
+              "Performance: 90% of users expressed satisfaction with themachine's performance. They praised its ability to wash clothesthoroughly and quickly.",
+              "Build quality: 95% of users were satisfiedwith the build quality of the machine. They mentioned that it feelssolid and sturdy.",
+              "Price-value ratio: 90% of users felt that themachine offers excellent value for money.",
+              "Ease of use: 95% of usersfound the machine easy to use and operate."
+          ]
           }
           this.counter1 = 0;
           this.counter2 = 0;
@@ -146,6 +169,7 @@ export class HomeComponent implements OnInit , AfterViewChecked {
           this.typeWriterPros(()=>{
             this.typeWriterCons()
           });
+          this.isGenerated = true;
         }
       }
     )
@@ -159,7 +183,7 @@ export class HomeComponent implements OnInit , AfterViewChecked {
           (document.getElementById("appPros")as any ).innerHTML += this.summaryResult.responsePros.charAt(this.counter1);
           this.counter1 = this.counter1 + 1;
           this.typeWriterPros(callback);
-        } ,10);
+        } ,30);
 
   }
 
@@ -171,17 +195,44 @@ export class HomeComponent implements OnInit , AfterViewChecked {
           (document.getElementById("appCons")as any ).innerHTML += this.summaryResult.responseCons.charAt(this.counter2);
           this.counter2 = this.counter2 + 1;
           this.typeWriterCons();
-        } ,10);
+        } ,30);
   }
  
   getAllUrl(){
     this.httpClient.getAllUrl().subscribe(
       {
         next :(res)=>{
-          this.urls = res.urls
+          this.urls = res
         }
       }
     )
+  }
+  getAHistoryUrl(){
+    this.httpClient.getHistoryUrl().subscribe(
+      {
+        next :(res)=>{
+          this.historyUrls = res
+        }
+      }
+    )
+  }
+  setGeneratedUrl(){
+    const query = {
+      url:this.selectedLink,
+      name : this.selectedUrlName
+    }
+    this.httpClient.setHistoryUrl(query).subscribe(
+      {
+        next :(res)=>{
+          this.historyUrls = res
+        }
+      }
+    )
+  }
+  generateHistoryUrlsSummary(url:any){
+    this.selectedLink = url;
+    this.selectedUrlName ="";
+    this.generateSummary();
   }
   clearMessage(){
     this.messages = [];
@@ -189,5 +240,26 @@ export class HomeComponent implements OnInit , AfterViewChecked {
   }
   maximize(){
     this.minmax = !this.minmax ;
+    if(this.minmax){
+      this.messageBox = true;
+      let style = document.querySelector(".message-box") as any;
+      style.style.bottom = "115px";
+      style.style.width = "40%";
+    }else{
+      this.messageBox = false;
+      let style = document.querySelector(".message-box") as any;
+      style.style.bottom = "35px";
+      style.style.width = "50px";
+    }
+  }
+  submit(event:any){
+    this.selectedLink=event.url;
+    this.selectedUrlName = event.name;
+    this.generateSummary();
+    console.log(event.url)
+  }
+  close(){
+    this.isGenerated = false;
+    this.about.reset();
   }
 }

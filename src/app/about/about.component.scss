@@ -1,27 +1,21 @@
 .card {
     background: #fff !important;
     color: #2d3273 !important;
-    border:1px dotted
+    border:0px dotted
 }
 div > label {
     color: #fff;
 }
-.message1 {
-  border-radius: 1px 50px 50px  50px;
-  margin: 0 15px 20px;
-  padding: 10px 20px;
-  position: relative;
-  font-size: 20px;
-}
-.message2 {
-    border-radius: 50px 1px 50px  50px;
+
+.message {
+    border-radius: 50px;
     margin: 0 15px 20px;
     padding: 10px 20px;
     position: relative;
     font-size: 20px;
   }
-  .message2.to {
-    background-color: #56f4e1;
+  .message.to {
+    background-color: #2095FE;
     color: #fff;
     margin-left: 100px;
     text-align: right;
@@ -29,22 +23,22 @@ div > label {
     float: right;
     font-size: 10px;
   }
-  .message1.from {
-    background-color: #8f59f9 ;
-    color: #ffffff;
+  .message.from {
+    background-color: #E5E4E9;
+    color: #363636;
     margin-right: 100px;
     width: fit-content;
     float: left;
     font-size: 10px;
   }
-  .message2.to + .message2.to,
-  .message1.from + .message1.from {
+  .message.to + .message.to,
+  .message.from + .message.from {
     margin-top: -10px;
 }
 .chat-bot {
     position: absolute;
-    bottom: 30px;
-    right: 30px;
+    bottom: 65px;
+    right: 20px;
     background: #cfd4d900;
     width: 40%;
     height: 50px;
@@ -59,7 +53,6 @@ div > label {
     min-height: 170;
     overflow-y:scroll;
     border:1px solid #000;
-    z-index:1;
 }
 .min-max{
   text-align: right;
