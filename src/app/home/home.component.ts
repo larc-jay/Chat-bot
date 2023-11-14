@@ -38,6 +38,20 @@ export class HomeComponent implements OnInit , AfterViewChecked {
 } 
 
   ngOnInit() {
+    this.urls =[
+      {
+        search_term : 'url namewhere we turn user reviews into valuable insights. We transfo  ',
+        product_url : 'url link 1 where we turn user reviews into valuable insights. We transfo'
+      },
+      {
+        search_term : 'url nawhere we turn user reviews into valuable insights. We transfome 2 ',
+        product_url : 'url link 2'
+      },
+      {
+        search_term : 'url name 3',
+        product_url : 'https://rukminim2.flixcart.com/image/416/416/k7285u80/washing-machine-new/x/t/t/ace-7-5-supreme-whirlpool-original-imafpdphxezg24ey.jpeg?q=70'
+      }
+    ];
     this.historyUrls = this.urls;
     this.chatService.conversation.subscribe((val) => {
       this.messages = this.messages.concat(val);
@@ -100,9 +114,9 @@ export class HomeComponent implements OnInit , AfterViewChecked {
       {
         next : (res)=>{
           this.summaryResult = res;
-          /*
+            
           //for writing effect
-          this.counter1 = 0;
+          /*this.counter1 = 0;
           this.counter2 = 0;
           this.MAXLEN1 = this.summaryResult.responsePros.length;
           this.MAXLEN2 = this.summaryResult.responseCons.length;
@@ -111,7 +125,7 @@ export class HomeComponent implements OnInit , AfterViewChecked {
           this.typeWriterPros(()=>{
             this.typeWriterCons()
           });
-          */
+           */
            this.getAHistoryUrl();
           this.isGenerated = true;
           if(this.selectedUrlName && this.selectedUrlName.trim()){
@@ -195,7 +209,7 @@ export class HomeComponent implements OnInit , AfterViewChecked {
       this.messageBox = true;
       let style = document.querySelector(".message-box") as any;
       style.style.bottom = "115px";
-      style.style.width = "40%";
+      style.style.width = "79%";
     }else{
       this.messageBox = false;
       let style = document.querySelector(".message-box") as any;
@@ -206,7 +220,9 @@ export class HomeComponent implements OnInit , AfterViewChecked {
   submit(event:any){
     this.selectedLink=event.url;
     this.selectedUrlName = event.name;
-    this.generateSummary();
+    //this.generateSummary();
+    this.generating = true;
+    this.setTempSummary();
     console.log(event.url)
   }
   close(){
@@ -235,6 +251,7 @@ export class HomeComponent implements OnInit , AfterViewChecked {
               "Ease of use: 95% of usersfound the machine easy to use and operate."
           ]
           }
+          /*
           this.counter1 = 0;
           this.counter2 = 0;
           this.MAXLEN1 = this.summaryResult.responsePros.length;
@@ -243,7 +260,7 @@ export class HomeComponent implements OnInit , AfterViewChecked {
           (document.getElementById("appPros")as any ).innerHTML =''
           this.typeWriterPros(()=>{
             this.typeWriterCons()
-          });
+          });*/
           this.isGenerated = true;
   }
 }

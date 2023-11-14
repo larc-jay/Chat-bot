@@ -1,7 +1,7 @@
 .card {
     background: #fff !important;
     color: #2d3273 !important;
-    border:1px dotted
+    border:0px dotted !important;
 }
 div > label {
     color: #fff;
@@ -21,8 +21,8 @@ div > label {
     font-size: 20px;
   }
   .message2.to {
-    background-color: #56f4e1;
-    color: #fff;
+    background-color: #68F1F3;
+    color: #000;
     margin-left: 100px;
     text-align: right;
     width: fit-content;
@@ -30,8 +30,8 @@ div > label {
     font-size: 10px;
   }
   .message1.from {
-    background-color: #8f59f9 ;
-    color: #ffffff;
+    background-color: #D7C4FD ;
+    color: #000;
     margin-right: 100px;
     width: fit-content;
     float: left;
@@ -46,19 +46,19 @@ div > label {
     bottom: 30px;
     right: 30px;
     background: #cfd4d900;
-    width: 40%;
+    width: 77%;
     height: 50px;
 }
 .message-box {
     position: absolute;
-    bottom: 115px;
-    right: 20px;
+    bottom: 85px;
+    right: 5px;
     background: #96bfe800;
-    width: 40%;
+    width: 78%;
     max-height: 450px;
     min-height: 170;
     overflow-y:scroll;
-    border:1px solid #000;
+    box-shadow: -1px -3px 8px -5px #000;
     z-index:1;
 }
 .min-max{
@@ -66,9 +66,9 @@ div > label {
   background: #fff;
 }
 .msg {
-    max-height: 420px !important;
-    min-height: 170;
-    overflow-y:scroll;
+    max-height: 100% !important;
+    min-height: 100%;
+    /*overflow-y:scroll;*/
 }
 .noborder {
   border: 0px !important;

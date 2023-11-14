@@ -3,19 +3,30 @@
  </div> 
   <div [hidden]="!isGenerated"  class="content">       
     <div class="layout-left p-1">
-            <img class="p-2" src="./assets/images/logo.png" width="300"/>
-          <div class="row">
+            <img class="p-2" src="./assets/images/logo.png" width="250"/>
+          <div class="row p-0 m-0">
             <div class="col-sm-6 text-left">
-              <button class="btn btn-sm btn-primary">History</button>
+              <button class="">
+                <svg width="25" height="20" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <rect width="25" height="20" fill="url(#pattern0)"/>
+                  <defs>
+                  <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                  <use xlink:href="#image0_21_51" transform="matrix(0.00925926 0 0 0.0111111 0.0833333 0)"/>
+                  </pattern>
+                  <image id="image0_21_51" width="90" height="90" xlink:href="data:image/png;base64,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"/>
+                  </defs>
+                  </svg>
+                History
+              </button>
             </div>
             <div class="col-sm-6 text-right">
-              <button (click)="close()" class="btn btn-sm btn-primary">Close</button> 
+              <button (click)="close()" class="">Close</button> 
             </div>
           </div>
           <div class="pt-1">
             <ul *ngIf="historyUrls && historyUrls.length> 0">
               <li *ngFor ="let u of historyUrls">
-                <span (click)="generateHistoryUrlsSummary(u.product_url)" class="link cursor">{{u.search_term}}</span>
+                <span (click)="generateHistoryUrlsSummary(u.product_url)" class="link cursor">{{u.search_term.substring(0,25)}}</span>
               </li>
             </ul>
           </div>  
@@ -43,7 +54,7 @@
                 </div> -->
         </div>
         <div class="layout-right">
-            <div class="card" >
+            <div class="card"  style=" height: 300px; overflow-y: scroll;">
               <div class="card-body" *ngIf="generating">
                     <div *ngIf="!summaryResult.responsePros">
                       <img class="p-2" src="./assets/images/generating.svg" width="50"/>Generating......
@@ -52,34 +63,36 @@
                     <div class="card-text" [hidden]="!summaryResult.responsePros">
                       <img *ngIf="summaryResult" class="card-img-top" src="{{summaryResult.img_url}}" style="width: 200px; float: left;padding:25px">
                       <div>
-                        <h5>Pros :</h5>
+                        <h5 class="pccolor">Pros :</h5>
                         <!-- <span id="appPros"> </span> -->
                         <ul *ngIf="summaryResult?.responseProsList?.length > 0">
                           <li *ngFor="let psum of summaryResult.responseProsList">{{psum}}</li>
                         </ul>
+                        <span *ngIf="summaryResult?.responseProsList?.length == 0">Pros not found</span>
                       </div>
-                      <h5>Cons :</h5> 
+                      <h5 class="pccolor">Cons :</h5> 
                       <ul *ngIf="summaryResult?.responseConsList?.length > 0">
                         <li *ngFor="let csum of summaryResult.responseConsList">{{csum}}</li>
                       </ul>
+                      <span *ngIf="summaryResult?.responseConsList?.length == 0">Cons not found</span>
                       <!-- <div [hidden]="counter2 == 0">
                         <h5>Cons :</h5><span id="appCons">  </span>
                       </div> -->
                     </div>
               </div>
               </div>  
-              <div  class="message-box"  *ngIf="messages.length > 0">
+              <div #scrollMe class="message-box"  *ngIf="messages.length > 0" style="max-height: 250px;overflow-y: scroll;width:79%;">
                 <div class="min-max"> 
                   <img *ngIf="minmax" src="./assets/images/min.png" width="20" (click)="maximize()"/>
                   <img *ngIf="!minmax"  src="./assets/images/max.png" width="25"  (click)="maximize()"/>
                 </div>
                 <div class="card noborder chat-bot-window" *ngIf="minmax">
-                  <div #scrollMe  class="card-body msg ">
+                  <div   class="card-body msg ">
                     <ng-container *ngFor="let message of messages">
                       <div class="row">
                         <div class="col-md-12" [ngClass]="{'text-left': message.author === 'bot','text-right': message.author === 'user'}">
-                          <img style="float: right;"  src="./assets/images/usericon.png" width="30" *ngIf="message.author === 'user'"/>
-                          <img  style="float: left;"   src="./assets/images/usericon1.png" width="30" *ngIf="message.author === 'bot'"/>
+                          <img style="float: right;"  src="./assets/images/usericon1.png" width="30" *ngIf="message.author === 'user'"/>
+                          <img  style="float: left;"   src="./assets/images/usericon.jpeg" width="50" *ngIf="message.author === 'bot'"/>
                           <div class="" [ngClass]="{'from message1' : message.author === 'bot','to message2' : message.author === 'user'}">
                             {{ message.content }}
                           </div>
@@ -102,9 +115,9 @@
                         <span class="cursor" (click)="sendMessage()">
                           <img class="" src="./assets/images/Sent.png" width="40"/>
                         </span>
-                        <!-- <span class="cursor" (click)="sendTestMessage()">
+                        <span class="cursor" (click)="sendTestMessage()">
                           <img class="" src="./assets/images/Sent.png" width="40"/>
-                        </span> -->
+                        </span>
                         <!-- <button (click)="sendMessage()" class="btn btn-sm btn-primary">Send</button> &ngsp; &ngsp; -->
                         <!-- <button (click)="sendTestMessage()" class="btn btn-sm btn-primary">Send</button> -->
                         <!-- <button (click)="clearMessage()" class="btn btn-sm  border txtw">Clear</button> -->

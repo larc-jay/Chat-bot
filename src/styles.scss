@@ -16,7 +16,7 @@
     min-height: calc(100vh - 30px);
 }
 .layout-left {
-    background: rgb(212 213 221 / 40%);
+    /* background: rgb(212 213 221 / 40%);*/
     width: 20%;
     border-right: 1px solid #202016;
     min-height: calc(100vh - 50px);
@@ -29,9 +29,11 @@
     background: #f0f0f014;
     /* width: 70%;*/
     max-height: calc(100vh - 50px);
-    overflow-y:scroll;
+    /* overflow-y:scroll;*/
     padding: 5px;
     color: #fff;
+    background: linear-gradient(109.23deg, #F5FEFD 14.54%, #F8F5FF 85.29%);
+    /*-shadow: 0px 0px 3px 0px #000;*/
 }
 .relative {
     position: relative;
@@ -65,3 +67,55 @@
 .link {
     color: #0a58ca;
 }
+
+ 
+  button {
+    transform: translate(-1%, -50%);
+    text-align: center;
+    line-height: 25px;
+    color: #fff;
+    font-size: 12px;
+    text-transform: capitalize;
+    text-decoration: none;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    background: linear-gradient(97.35deg, #8F59F9 -11.81%, #56F4E1 129.34%),linear-gradient(0deg, #FFFFFF, #FFFFFF);
+    background-size: 100%;
+    border-radius: 5px;
+    z-index: 1;
+    min-width:120px;
+  }
+
+  button:hover {
+    animation: animate 8s linear infinite;
+  }
+  @keyframes animate {
+    0% {
+      background-position: 0%;
+    }
+    100% {
+      background-position: 100%;
+    }
+  }
+  button:before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: -1;
+    background: linear-gradient(97.35deg, #5301f7 -11.81%, #03a793 129.34%),linear-gradient(0deg, #FFFFFF, #FFFFFF);
+    background-size: 100%;
+    border-radius: 5px;
+    opacity: 0;
+    transition: 0.5%;
+  }
+  button:hover:before {
+    filter: blur(20px);
+    opacity: 1;
+    animation: animate 8s linear infinite;
+  }
+  .pccolor {
+    color: #8f59f9;
+  }

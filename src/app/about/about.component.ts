@@ -18,7 +18,7 @@ export class AboutComponent {
     this.isGenerate =false;
   }
   ngOnInit() {
-    //this.setTempUrl();
+    this.setTempUrl();
     this.getAllUrl();
     this.isGenerate =false;
   }

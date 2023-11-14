@@ -1,30 +1,34 @@
 
-   <div class=" text-center">
+   <div class=" text-center" style="padding-left: 20%; padding-right: 20%;">
     <a class="navbar-brand" href="#">
             <img class="p-2" src="./assets/images/logo.png" width="300"/>
           </a>
             <div class="card" >
                 <div class="card-body">
                   <h4 class="card-title">
-                    <span class="col1">About</span> <span class="col2"> Us</span>
+                    <span class="col2"> About Us</span>
                   </h4>
                   <p class="card-text">
                     Welcome to reviewBricks.ai, where we turn user reviews into valuable insights. We transform everyday language into actionable data, extracting key information from user reviews to help you easily identify product strengths and weaknesses. Ask questions and receive natural, user-friendly answers. Let user feedback be your trusted guide.
                   </p>
                 </div>
               </div>
-              <div class="input-group pt-2">
-                <div class="input-group mb-3">
+                <div class="input-group mb-3 pt-2">
                     <select class="form-control" [(ngModel)]="selectedLink">
                       <option value="">Choose Product Link</option>
                       <option *ngFor="let u of urls" [value]="u.url"> {{u.name}}
                       </option>
                     </select>
                   </div>
-                </div>
-                <div class="">
-                  <button type="button" class="btn btn-primary" (click)="generateSummary()">Generate</button>
+                <div class="card" >
+                  <div class="card-body">
+                <div class="pt-2">
+                  <button type="button" class="" (click)="generateSummary()">
+                    Generate
+                  </button>
                   <div *ngIf="isGenerate">
                     <img class="p-2" src="./assets/images/generating.svg" width="50"/>Generating......
+                  </div>
+                  </div>
                   </div>
      </div>       
