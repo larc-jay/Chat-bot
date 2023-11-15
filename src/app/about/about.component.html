@@ -13,12 +13,37 @@
                   </p>
                 </div>
               </div>
-                <div class="input-group mb-3 pt-2">
-                    <select class="form-control" [(ngModel)]="selectedLink">
+              <div class="row">
+                <div class="col-md-11 pt-2">
+                  <div class="input p-1">
+                    <span *ngIf="selectedLink.img_link">
+                      <img src="{{selectedLink.img_link}}" width="20">
+                    </span>
+                    {{selectedLink.name}}
+                  </div>
+                  <div class="listview" *ngIf="showUrl">
+                    <p *ngFor="let u of urls" (click)="selectUrl(u)" class="p-1 cursor">
+                      <span *ngIf="u.thumbnail">
+                        <img src="{{u.thumbnail}}">
+                      </span>
+                      <span *ngIf="!u.thumbnail">
+                        <img src="{{thumbnail}}" width="20">
+                      </span>
+                      {{u.name}}
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-1">
+                  <img width="40" (click)="showUrls()" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAFZklEQVR4nO2cyW8cRRTGmy0SgohVAnGCA7Ezr3pyyIGINQIugIBTLiA4GbgR5S8YOBB7qsYCQS6AwiJuCA6WAJEjiFswHIhQUCQQIY4PQY7tfm8chTiN3ixe4u6u9kxXd4/7/aSSrJmaWr6v6lWVp3o8TxAEQRAEQRAEQRCElLT2LN+tgd7Win7RgGgUhVVImvsKNMt9Pzq+dFchA0b79KIBWixaDFO4GXSxVaMX8hdf4WrRnTelSbhqgJ7PLezIyKetJgAt5BKOOO4VP+KolEkrbDg3wCj6teiOmrImoNk8DFiOrHwvPeRVhGmfDkTPAFpyXnmc+17FMEXpIAZ0EQMKRgxISaMW7jKKmlrReaNwTgNN8WuD5usjBqSEhdyyWAJNDZqvUAMm/cU7Rm0NMArntrYX5wbNt54/WgfWyFlnWkCHY7Zf572SYiKE1YDnBs23np/mY0x402Fn6FRMpZ97JUVHhBYDNDlovj7c5xgtTjnqSPuRuGnH73klpVELd3XF5RGevAinyVeYHgmO/+5VFA30W0xI/izTit7dd/F2A0i5x7ySE7smArana4t3jl5FI0ZuAzO3qTaCOA/NSYtNC9oPexVHu9Yn9+3WCOJ0e85ftcnimwzH+xiN/vVcGcBfSgxd+E7/gibhJJ0aXmgj45tPr2fS+h2AVvRG5AwAOj504S3ACdkBJWOAvohehHHCGxatgnq0ARg0xy7s9irO1P6F2+JuBbJ2Q1cQeuF1BvCvaIfpsFdxTI2OxMT/P1m7TCrRQEdjwtBSc4zu8yqKruG9fDUxRpt3Mqtoct/K/RrwcrTT9F3jifDGLOpp1S/taangZRc7LC5T+8FLzb2XHsyivA/3hzdpRd/HjP7Lpr7ygJclWtHHcSc+DfTJMNOt4YXXd25ZA17ZsMbM8DXITG5wK5xZ35ngf1wX1zlomdzXuN1hL33kZQ2HmoRDGZvwzSD/mGuOXdi9SaBN2zj8p1VrPzpwm/32Y1xGzCZiZpBNBN//NEDfxooPtOAsLBvAVxJc7woGOMHT01bWl4fCG7pb3KjvYjcJddUo/MrUA5W2ndN+4GuFX3c/m1A24DluA7fFVib3ic8+/BlLma96Lkk0YC3h3wbwfePjMxzXTT285VgtvLWllsf5NaPwmFZ4Nl1Za2WuGsCTBugtA8HBfrmcOn9DcLBzcRjwpE34CJPPasAPOu1Vy+Pc1n65TYXP8ntp2+tU/PQGVDd5YgCJAQOPIKDTPOUN0KfbDSOWEHOVd2pG4XMa8A+ZAdcKBNjmWwjTB8Kb10Kd336cH/4bWiygWS6rXy7XwVcQjcKVnRWCOosrndjOs2Na0RKL8Z4K7omtrxY8ydu+jWcEa7mAV3hbzJ9NPMUq0r02pBS407cTvb6Wy4D++yymruFr/K9YDfRz9wYZrvQe7TytAX8wgNMtP3gq6d7NtfAZQ/vtQ90DIf6kFZ7hMjtJ4Rl+jQ9AnGc755HOfSA/eJrbZAB/7LURezNkvtMHoOO8Xd04UEprQFUwYkCxiAEFIwYUjBhQMGJAwVTOgMamZ7iyP0D19vnWa+lF61BYxTrqAQpHKenZsOoaoFyO/C1pvqw6FFaxyU/8VP0RA5QYIDNASQgKXYU2CUE5xVwxICVigGMhbIgBjoWwIQY4FsKGGOBYCBtigGMhbIgBjoWwIQY4FsKGGOBYCBtigGMhbIgBjoWwIQY4FsKGGOBYCBtigGMhbIgBjoWwIQY4FsKGGOBYCBtigGMhbIgBFiEkUS4DUQxQw90nEgPUyBuQ/NMCVU46i9+IK9MlWTNqKeHX1jNj86+Ml6DTqgwp/bV2QRAEQRAEQRC8yvM/PTH96azpi1kAAAAASUVORK5CYII="/>
+                </div>
+              </div>
+                
+              <div class="input-group mb-3 pt-2">
+                    <!-- <select class="form-control" [(ngModel)]="selectedLink">
                       <option value="">Choose Product Link</option>
                       <option *ngFor="let u of urls" [value]="u.url"> {{u.name}}
                       </option>
-                    </select>
+                    </select> -->
                   </div>
                 <div class="card" >
                   <div class="card-body">

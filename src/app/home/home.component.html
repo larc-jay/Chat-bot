@@ -26,7 +26,8 @@
           <div class="pt-1">
             <ul *ngIf="historyUrls && historyUrls.length> 0">
               <li *ngFor ="let u of historyUrls">
-                <span (click)="generateHistoryUrlsSummary(u.product_url)" class="link cursor">{{u.search_term.substring(0,25)}}</span>
+                <img src="{{u.img_link ? u.img_link : thumbnail}}" width="20" class="m-1">
+                <span (click)="generateHistoryUrlsSummary(u.product_url)" class="cursor">{{u.search_term.substring(0,25)}}</span>
               </li>
             </ul>
           </div>  
@@ -115,9 +116,9 @@
                         <span class="cursor" (click)="sendMessage()">
                           <img class="" src="./assets/images/Sent.png" width="40"/>
                         </span>
-                        <span class="cursor" (click)="sendTestMessage()">
+                        <!-- <span class="cursor" (click)="sendTestMessage()">
                           <img class="" src="./assets/images/Sent.png" width="40"/>
-                        </span>
+                        </span> -->
                         <!-- <button (click)="sendMessage()" class="btn btn-sm btn-primary">Send</button> &ngsp; &ngsp; -->
                         <!-- <button (click)="sendTestMessage()" class="btn btn-sm btn-primary">Send</button> -->
                         <!-- <button (click)="clearMessage()" class="btn btn-sm  border txtw">Clear</button> -->

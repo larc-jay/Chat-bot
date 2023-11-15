@@ -33,6 +33,8 @@ export class HomeComponent implements OnInit , AfterViewChecked {
   minmax = false;
   messageBox = true;
   isGenerated = false;
+  imgLink:any ="";
+  thumbnail = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsWiHGWhvUts3ud-clad_6KDd3O1UNPx2yJL43wc_G6g&s"
   ngAfterViewChecked() {        
     this.scrollToBottom();        
 } 
@@ -184,7 +186,8 @@ export class HomeComponent implements OnInit , AfterViewChecked {
   setGeneratedUrl(){
     const query = {
       url:this.selectedLink,
-      name : this.selectedUrlName
+      name : this.selectedUrlName,
+      img_link : this.imgLink
     }
     this.httpClient.setHistoryUrl(query).subscribe(
       {
@@ -220,9 +223,10 @@ export class HomeComponent implements OnInit , AfterViewChecked {
   submit(event:any){
     this.selectedLink=event.url;
     this.selectedUrlName = event.name;
-    //this.generateSummary();
+    this.imgLink = event.img_link
+    this.generateSummary();
     this.generating = true;
-    this.setTempSummary();
+    //this.setTempSummary();
     console.log(event.url)
   }
   close(){
