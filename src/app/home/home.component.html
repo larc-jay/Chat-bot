@@ -67,13 +67,13 @@
                         <h5 class="pccolor">Pros :</h5>
                         <!-- <span id="appPros"> </span> -->
                         <ul *ngIf="summaryResult?.responseProsList?.length > 0">
-                          <li *ngFor="let psum of summaryResult.responseProsList">{{psum}}</li>
+                          <li *ngFor="let psum of summaryResult.responseProsList"><span [innerHtml]="formatText(psum)"></span></li>
                         </ul>
                         <span *ngIf="summaryResult?.responseProsList?.length == 0">Pros not found</span>
                       </div>
                       <h5 class="pccolor">Cons :</h5> 
                       <ul *ngIf="summaryResult?.responseConsList?.length > 0">
-                        <li *ngFor="let csum of summaryResult.responseConsList">{{csum}}</li>
+                        <li *ngFor="let csum of summaryResult.responseConsList"><span [innerHtml]="formatText(csum)"></span></li>
                       </ul>
                       <span *ngIf="summaryResult?.responseConsList?.length == 0">Cons not found</span>
                       <!-- <div [hidden]="counter2 == 0">

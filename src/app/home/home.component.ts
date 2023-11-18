@@ -227,7 +227,7 @@ export class HomeComponent implements OnInit , AfterViewChecked {
     this.generateSummary();
     this.generating = true;
     //this.setTempSummary();
-    console.log(event.url)
+    //console.log(event.url)
   }
   close(){
     this.isGenerated = false;
@@ -266,5 +266,12 @@ export class HomeComponent implements OnInit , AfterViewChecked {
             this.typeWriterCons()
           });*/
           this.isGenerated = true;
+  }
+  formatText(text:any){
+    const index = text.indexOf(":");
+    if(index > 0){
+      text = '<b>'+text.substring(0,index)+"</b>"+text.substring(index,text.length)
+    }
+    return text;
   }
 }
