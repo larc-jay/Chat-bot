@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit , AfterViewChecked {
   messageBox = true;
   isGenerated = false;
   imgLink:any ="";
+  isFullScreen = true;
   thumbnail = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsWiHGWhvUts3ud-clad_6KDd3O1UNPx2yJL43wc_G6g&s"
   ngAfterViewChecked() {        
     this.scrollToBottom();        
@@ -267,11 +268,30 @@ export class HomeComponent implements OnInit , AfterViewChecked {
           });*/
           this.isGenerated = true;
   }
-  formatText(text:any){
+  formatText(text:any,ffor:string){
     const index = text.indexOf(":");
     if(index > 0){
-      text = '<b>'+text.substring(0,index)+"</b>"+text.substring(index,text.length)
+      if(ffor=='p'){
+        text = '<span class="cbgt">'+text.substring(0,index)+"</span>"+text.substring(index,text.length)
+      }else{
+        text = '<span class="pbgt">'+text.substring(0,index)+"</span>"+text.substring(index,text.length)
+      }
     }
     return text;
+  }
+
+  isFullScreenOn(isFull:boolean){
+    this.isFullScreen = isFull;
+    if(this.isFullScreen){
+      let style = document.querySelector("#top-content") as any;
+      style.style.height = "90%";
+      let bts = document.querySelector("#bottom-content") as any;
+      bts.style.height = "49%";
+    }else{
+      let style = document.querySelector("#top-content") as any;
+      style.style.height = "50px";
+      let bts = document.querySelector("#bottom-content") as any;
+      bts.style.height = "80%";
+    }
   }
 }

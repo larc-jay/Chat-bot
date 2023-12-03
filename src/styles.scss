@@ -86,9 +86,9 @@
     min-width:120px;
   }
 
-  button:hover {
-    animation: animate 8s linear infinite;
-  }
+  // button:hover {
+  //   animation: animate 8s linear infinite;
+  // }
   @keyframes animate {
     0% {
       background-position: 0%;
@@ -118,4 +118,22 @@
   }
   .pccolor {
     color: #8f59f9;
+  }
+  .pbgt {
+    color: #8f59f9;
+    font-weight: 700;
+  }
+  .cbgt {
+    color: #68F1F3;
+    font-weight: 700;
+  }
+  button.btn-blank {
+    background: linear-gradient(97.35deg, #fff -11.81%, #fff 129.34%), linear-gradient(0deg, #FFFFFF, #FFFFFF)   !important;
+    color: #8F59F9 ;
+    border: 1px solid #8F59F9;
+  }
+
+  button.btn-blank:hover:before {
+    opacity: .1;
+    box-shadow: 1px 2px 3px #8F59F9;
   }
