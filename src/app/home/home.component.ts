@@ -35,6 +35,12 @@ export class HomeComponent implements OnInit , AfterViewChecked {
   isGenerated = false;
   imgLink:any ="";
   isFullScreen = true;
+  writingIcon=false;
+  thumbnails:any =[];
+  generatingIcon = false;
+  consView = false;
+  prosView =true;
+  option ='P'
   thumbnail = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsWiHGWhvUts3ud-clad_6KDd3O1UNPx2yJL43wc_G6g&s"
   ngAfterViewChecked() {        
     this.scrollToBottom();        
@@ -70,6 +76,9 @@ export class HomeComponent implements OnInit , AfterViewChecked {
     } catch(err) { }                 
 }
   sendTestMessage() {
+    //this.writingIcon = true;
+    this.generatingIcon = true;
+    this.writingIcon = false;
     if(!this.question){
       return;
     }
@@ -82,9 +91,15 @@ export class HomeComponent implements OnInit , AfterViewChecked {
     this.chatService.getBotAnswer(this.question);
     this.question = '';
     this.scrollToBottom();
+    setTimeout(()=>{
+      this.writingIcon = false;
+      this.generatingIcon = false;
+    },1000)
   }
  
   sendMessage() {
+    this.generatingIcon = true;
+    this.writingIcon = false;
     if(!this.question){
       return;
     }
@@ -101,11 +116,15 @@ export class HomeComponent implements OnInit , AfterViewChecked {
             this.chatService.setMessageAnswer(this.question,res.answer)
             this.chatService.getBotAnswer(this.question);
             this.question = '';
+            this.writingIcon = false;
+            this.generatingIcon = false;
             this.scrollToBottom();
           }
         },
         error :(err)=>{
           console.log(err)
+          this.writingIcon = false;
+          this.generatingIcon = false;
         }
       }) 
   }
@@ -142,6 +161,24 @@ export class HomeComponent implements OnInit , AfterViewChecked {
       }
     )
   }
+
+  generateSummaryFromURL(){
+    const query = {url : this.selectedLink}
+    this.generating = true;
+    this.summaryResult = {};
+    this.httpClient.generateSummaryFromUrl(query).subscribe(
+     {
+       next : (res)=>{
+         //this.isGenerated = false;
+         this.generateSummary();
+       },
+       error :(err)=>{
+         console.log(err);
+         this.setTempSummary();
+       }
+     }
+   )
+ }
   typeWriterPros(callback:Function){
     if(this.counter1>= this.MAXLEN1 ){
       callback();
@@ -201,6 +238,8 @@ export class HomeComponent implements OnInit , AfterViewChecked {
   generateHistoryUrlsSummary(url:any){
     this.selectedLink = url;
     this.selectedUrlName ="";
+    this.messages = [];
+    this.summaryResult = {};
     this.generateSummary();
   }
   clearMessage(){
@@ -225,7 +264,11 @@ export class HomeComponent implements OnInit , AfterViewChecked {
     this.selectedLink=event.url;
     this.selectedUrlName = event.name;
     this.imgLink = event.img_link
-    this.generateSummary();
+    if(event.option=='URL'){
+      this.generateSummaryFromURL();
+    }else{
+      this.generateSummary();
+    }
     this.generating = true;
     //this.setTempSummary();
     //console.log(event.url)
@@ -286,12 +329,50 @@ export class HomeComponent implements OnInit , AfterViewChecked {
       let style = document.querySelector("#top-content") as any;
       style.style.height = "90%";
       let bts = document.querySelector("#bottom-content") as any;
-      bts.style.height = "49%";
+      bts.style.height = "33%";
     }else{
       let style = document.querySelector("#top-content") as any;
       style.style.height = "50px";
       let bts = document.querySelector("#bottom-content") as any;
       bts.style.height = "80%";
     }
+  }
+  searchingEffect(){
+    this.writingIcon=true;
+    this.generatingIcon = false;
+  }
+  prosConsFullView(option:any){
+    this.option = option;
+    if(option=='P'){
+      this.prosView=true;
+      this.consView=false;
+    }else{
+      this.prosView=false;
+      this.consView=true;
+    }
+  }
+  loadThumbnail(){
+    this.thumbnails =[
+      {
+        "icon":"https://cdn2.iconfinder.com/data/icons/social-icons-color/512/flipkart-512.png",
+        "url" :"flipkart.com"
+      },
+      {
+        "icon":"https://blog.myntra.com/wp-content/themes/myntra/assets/img/Myntra-logo-horizontal.png",
+        "url" :"myntra.com"
+      },
+      {
+        "icon":"https://upload.wikimedia.org/wikipedia/commons/d/de/Amazon_icon.png",
+        "url" :"amazon"
+      },
+      {
+        "icon":"https://upload.wikimedia.org/wikipedia/en/3/35/Snapdeal_Logo_new.png?20160910142018",
+        "url" :"snapdeal.com"
+      },
+      {
+        "icon":"https://assets.ajio.com/static/img/Ajio-Logo.svg",
+        "url" :"ajio.com"
+      }
+    ]
   }
 }

@@ -13,6 +13,9 @@ export class HttpClientService {
   generateSummary(query: any) {
     return this.httpClient.post<any>(`${environment.apiBaseUrl}/generate_summary`, query);
   }
+  generateSummaryFromUrl(query: any) {
+    return this.httpClient.post<any>(`${environment.apiBaseUrl}/given_url`, query);
+  }
   askQuestion(query:any) {
     return this.httpClient.post<any>(`${environment.apiBaseUrl}/ask_question`,query);
   }

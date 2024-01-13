@@ -27,7 +27,7 @@
             <ul *ngIf="historyUrls && historyUrls.length> 0">
               <li *ngFor ="let u of historyUrls">
                 <img src="{{u.img_link ? u.img_link : thumbnail}}" width="20" class="m-1">
-                <span (click)="generateHistoryUrlsSummary(u.product_url)" class="cursor">{{u.search_term.substring(0,25)}}</span>
+                <span (click)="generateHistoryUrlsSummary(u.product_url)" class="cursor">{{u.search_term ? u.search_term.substring(0,25) :""}}</span>
               </li>
             </ul>
           </div>  
@@ -56,15 +56,20 @@
         </div>
         <div class="layout-right">
           <div class="card-title">
-            <span style="color: #000;padding-left:20px;">
+            <span style="color: #000;padding-left:20px;font-weight: 900;">
               {{summaryResult.product_name}}
             </span>
-            <span style="float: right;color: #8f59f9;" *ngIf="!isFullScreen" (click)="isFullScreenOn(true)">
+            <span class="cursor" style="float: right;color: #8f59f9;padding-left: 10px " title="Share on social media">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16">
+                <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5m-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3"/>
+              </svg>
+            </span>
+            <span class="cursor" style="float: right;color: #8f59f9;" *ngIf="!isFullScreen" (click)="isFullScreenOn(true)">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fullscreen" viewBox="0 0 16 16">
                 <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5"/>
              </svg>
              </span>
-            <span style="float: right;color: #8f59f9;" *ngIf="isFullScreen"  (click)="isFullScreenOn(false)">
+            <span class="cursor" style="float: right;color: #8f59f9;" *ngIf="isFullScreen"  (click)="isFullScreenOn(false)">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fullscreen-exit" viewBox="0 0 16 16">
                 <path d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5m5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5M0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5m10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0z"/>
               </svg>
@@ -77,11 +82,44 @@
                     </div>
                     
 
-                    <div class="row" >
+                    <div class="row" *ngIf="summaryResult && (summaryResult?.responseProsList?.length > 0 || summaryResult?.responseConsList?.length>0)" >
                       <div class="col-md-2">
                         <img *ngIf="summaryResult" class="card-img-top" src="{{summaryResult.img_url}}" style="width: 100%; float: left;padding:2px">
                       </div>
-                      <div class="col-md-5">
+                      <div class="col-md-10">
+                        <ul class="nav nav-tabs">
+                          <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active' : option=='P'}" aria-current="page" href="#" (click)="prosConsFullView('P')">Pros</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#" [ngClass]="{'active' : option=='C'}" (click)="prosConsFullView('C')">Cons</a>
+                          </li>
+                        </ul>
+                        <div class="card  card-shadow" *ngIf="prosView">
+                          <div class="card-header text-center pbg">
+                            <h5 class=" ">Pros</h5>
+                          </div>
+                          <div class="card-body">
+                            <ul *ngIf="summaryResult?.responseProsList?.length > 0" class="card-text">
+                              <li *ngFor="let psum of summaryResult.responseProsList"><span [innerHtml]="formatText(psum,'p')"></span></li>
+                            </ul>
+                            <span *ngIf="summaryResult?.responseProsList?.length == 0">Pros not found</span>
+                          </div>
+                        </div> 
+                        <div class="card  card-shadow"  *ngIf="consView">
+                          <div class="card-header text-center cbg">
+                            <h5 class=" ">Cons</h5>
+                          </div>
+                          <div class="card-body">
+                            <ul *ngIf="summaryResult?.responseConsList?.length > 0">
+                              <li *ngFor="let csum of summaryResult.responseConsList"><span [innerHtml]="formatText(csum,'c')"></span></li>
+                            </ul>
+                            <span *ngIf="summaryResult?.responseConsList?.length == 0">Cons not found</span>
+                          </div>
+                        </div> 
+                      </div>
+
+                      <!-- <div class="col-md-5">
                         <div class="card  card-shadow">
                           <div class="card-header text-center pbg">
                             <h5 class=" ">Pros</h5>
@@ -91,15 +129,8 @@
                               <li *ngFor="let psum of summaryResult.responseProsList"><span [innerHtml]="formatText(psum,'p')"></span></li>
                             </ul>
                             <span *ngIf="summaryResult?.responseProsList?.length == 0">Pros not found</span>
-                            <!-- <h5 class="card-title">Special title treatment</h5> -->
-                            <!-- <p >With supporting text below as a natural lead-in to additional content.</p> -->
-                            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                           </div>
-                          <!-- <div class="card-footer text-muted">
-                            2 days ago
-                          </div> -->
                         </div> 
-                        <!-- <span id="appPros"> </span> -->
                       </div>
                       <div class="col-md-5">
                         <div class="card  card-shadow">
@@ -110,20 +141,14 @@
                             <ul *ngIf="summaryResult?.responseConsList?.length > 0">
                               <li *ngFor="let csum of summaryResult.responseConsList"><span [innerHtml]="formatText(csum,'c')"></span></li>
                             </ul>
-                            <span *ngIf="summaryResult?.responseConsList?.length == 0">Pros not found</span>
-                            <!-- <h5 class="card-title">Special title treatment</h5> -->
-                            <!-- <p >With supporting text below as a natural lead-in to additional content.</p> -->
-                            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                            <span *ngIf="summaryResult?.responseConsList?.length == 0">Cons not found</span>
                           </div>
-                          <!-- <div class="card-footer text-muted">
-                            2 days ago
-                          </div> -->
                         </div> 
-                      </div>
+                      </div> -->
                     </div>
                 </div>
               </div>  
-              <div #scrollMe class="message-box" id="bottom-content"  *ngIf="messages.length > 0" style="height: 49%;overflow-y: scroll;width:79%;">
+              <div #scrollMe class="message-box" id="bottom-content"  *ngIf="messages.length > 0" style="height: calc(100vh - 450px);overflow-y: scroll;width:79%;">
                 <div class="min-max" [hidden]="true"> 
                   <img *ngIf="minmax" src="./assets/images/min.png" width="20" (click)="maximize()"/>
                   <img *ngIf="!minmax"  src="./assets/images/max.png" width="25"  (click)="maximize()"/>
@@ -141,14 +166,22 @@
                         </div>
                       </div>
                     </ng-container>
+                    <img *ngIf="writingIcon"  src="./assets/images/typing.gif" width="90" height="40" />
+                    <span *ngIf="!writingIcon && generatingIcon" ><img   class="p-2" src="./assets/images/generating.svg" width="50"/>Generating......</span>
                  </div>   
               </div>
+              </div>
+              <div *ngIf="messages.length == 0 && writingIcon" class="writing">
+                <img  src="./assets/images/typing.gif" width="90" height="40" />
+              </div>
+              <div *ngIf="messages.length == 0 && generatingIcon && !writingIcon" class="writing">
+                <img   class="p-2" src="./assets/images/generating.svg" width="50"/>Generating......
               </div>
               <div class="chat-bot" *ngIf="summaryResult.response">
                   <div class="row" *ngIf="messageBox">
                     <div class="col-sm-11">
                       <!-- <label *ngIf="messages.length == 0; else dialogInfo" for="nameField">Ask your question</label> -->
-                      <input [(ngModel)]="question" class="form-control" (keyup.enter)="sendMessage()" type="text"  placeholder="Ask your question"/>
+                      <input [(ngModel)]="question" class="form-control" (keyup.enter)="sendMessage()" type="text" (keyup)="searchingEffect()" placeholder="Ask your question"/>
                       <!-- <ng-template #dialogInfo>
                         <span [className]="'float-right'">Total messages: {{ messages.length }}</span>
                       </ng-template> -->
@@ -157,9 +190,9 @@
                         <span class="cursor" (click)="sendMessage()">
                           <img class="" src="./assets/images/Sent.png" width="40"/>
                         </span>
-                        <span class="cursor" (click)="sendTestMessage()">
+                        <!-- <span class="cursor" (click)="sendTestMessage()">
                           <img class="" src="./assets/images/Sent.png" width="40"/>
-                        </span>
+                        </span> -->
                         <!-- <button (click)="sendMessage()" class="btn btn-sm btn-primary">Send</button> &ngsp; &ngsp; -->
                         <!-- <button (click)="sendTestMessage()" class="btn btn-sm btn-primary">Send</button> -->
                         <!-- <button (click)="clearMessage()" class="btn btn-sm  border txtw">Clear</button> -->

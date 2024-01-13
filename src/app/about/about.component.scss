@@ -129,8 +129,9 @@ div > label {
 transform: translateX(0);
 }
 .img-fluid {
-  height: 120px;
-  width: 120px;
+  height: 85px;
+ /* width: 80px;*/
+  padding: 5px;
 }
 .carousel-item.active {
   background-color: #fff;

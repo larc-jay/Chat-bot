@@ -2,7 +2,8 @@
     background: #fff !important;
     color: #2d3273 !important;
     // border:0px dotted !important;
-    border-radius: 0px !important;
+    border-radius: 8px 0px 0px 8px  !important;
+    
 }
 .card-header {
   padding: 0 !important;
@@ -10,6 +11,8 @@
 .card-shadow {
   box-shadow : 0px 1px 4px #000;
   min-height: 300px;
+  max-height: 300px;
+  overflow-y: scroll;
 }
 div > label {
     color: #fff;
@@ -35,7 +38,7 @@ div > label {
     text-align: right;
     width: fit-content;
     float: right;
-    font-size: 10px;
+    font-size: 16px;
   }
   .message1.from {
     background-color: #D7C4FD ;
@@ -43,7 +46,7 @@ div > label {
     margin-right: 100px;
     width: fit-content;
     float: left;
-    font-size: 10px;
+    font-size: 16px;
   }
   .message2.to + .message2.to,
   .message1.from + .message1.from {
@@ -91,4 +94,9 @@ li {
 .cbg {
   background: #8f59f9;
   color: #fff;
+}
+.writing{
+  position: absolute;
+  bottom: 85px;
+  width: 100px;
 }

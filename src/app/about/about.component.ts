@@ -45,10 +45,17 @@ export class AboutComponent {
   generateSummary(){
     this.isGenerate = true;
     //let u = this.urls.find((ur:any)=>ur.url == this.selectedLink);
+    if(this.url){
+      this.selectedLink.option='URL';
+      this.selectedLink.url = this.url;
+    }else{
+      this.selectedLink.option='PROD'
+    }
     this.submitUrl.emit(this.selectedLink)
+    //this.url='';
   }
   getAllUrl(){
-    this.httpClient.getAllUrl().subscribe(
+    this.httpClient.getHistoryUrl().subscribe(
       {
         next :(res)=>{
           this.urls = res
@@ -60,6 +67,9 @@ export class AboutComponent {
     this.urls = [];
     this.isGenerate = false;
     this.selectedLink = {};
+    this.isSearchItem = false;
+    this.isOnlineStore = false;
+    this.isOnlineStoreInput = false;
     this.setTempUrl();
     this.getAllUrl();
   }
@@ -88,7 +98,7 @@ export class AboutComponent {
       },
       {
         "icon":"https://blog.myntra.com/wp-content/themes/myntra/assets/img/Myntra-logo-horizontal.png",
-        "url" :"-https://www.myntra.com/"
+        "url" :"https://www.myntra.com/"
       },
       {
         "icon":"https://upload.wikimedia.org/wikipedia/commons/d/de/Amazon_icon.png",
